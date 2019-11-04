@@ -11,11 +11,11 @@ using namespace std;
 
 int main()
 {
-    WORD ver = MAKEWORD(2,2);
+    WORD ver = MAKEWORD(2, 2);
     WSADATA dat;
     //启动windows socket 网络环境
     WSAStartup(ver, &dat);
-    
+
     //关闭
     WSACleanup();
 
