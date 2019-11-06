@@ -11,6 +11,14 @@ using namespace std;
 //方法2：属性 - 连接器 - 输入 - "ws2_32.lib"
 //开发跨平台的c++代码时，应该使用第二种方法
 
+//结构化消息
+struct StudentInfo
+{
+    int age;
+    char name[32];
+};
+
+
 int main()
 {
     WORD ver = MAKEWORD(2, 2);
@@ -68,24 +76,22 @@ int main()
             break;
         }
         cout << "Client: " << recvBuf << endl;
-        //6.处理请求
-        if (0 == strcmp(recvBuf, "getName"))
+        //6.处理请求, 向客户端发送一条数据   
+        if (0 == strcmp(recvBuf, "getStudentInfo"))
         {
-            strcpy_s(sendBuf, "April");
-        }
-        else if (0 == strcmp(recvBuf, "getAge"))
-        {
-            strcpy_s(sendBuf, "20");
+            StudentInfo info = {20,"April"};
+            send(clientSock, (const char*)&info, sizeof(StudentInfo), 0);
         }
         else
         {
             strcpy_s(sendBuf, "???");
+            send(clientSock, sendBuf, strlen(sendBuf) + 1, 0);
         }
-        //7.向客户端发送一条数据      
-        send(clientSock, sendBuf, strlen(sendBuf) + 1, 0);
+           
+       
     }
 
-    //8.关闭套接字
+    //6.关闭套接字
     closesocket(sock);
     //关闭
     WSACleanup();

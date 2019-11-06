@@ -10,6 +10,14 @@ using namespace std;
 //方法2：属性 - 连接器 - 输入 - "ws2_32.lib"
 //开发跨平台的c++代码时，应该使用第二种方法
 
+//结构化消息
+struct StudentInfo
+{
+    int age;
+    char name[32];
+};
+
+
 int main()
 {
     WORD ver = MAKEWORD(2, 2);
@@ -32,28 +40,29 @@ int main()
     {
         cout << "Connect  failed!" << endl;
     }
- 
+
     while (true)
     {
         //3.输入请求命令
         char cmdBuf[128] = {};
         cin >> cmdBuf;
-       // scanf_s("%s",cmdBuf);
+        // scanf_s("%s",cmdBuf);
         if (0 == strcmp(cmdBuf, "exit"))
         {
             break;
         }
         //4.发送请求命令
-        send(sock, cmdBuf, strlen(cmdBuf)+1, 0);
+        send(sock, cmdBuf, strlen(cmdBuf) + 1, 0);
         //5.接收服务器的信息
         char msg[128] = {};
         if (recv(sock, msg, sizeof(msg), 0) > 0)
         {
-            cout << "Server: " << msg << endl;
+            StudentInfo *info = (StudentInfo*)msg;           //简单转换，该方法有风险,接收错误消息时，解析出错
+            cout << "Server: " << info->name << " "<<info->age << endl;
         }
     }
-    
-    //6.关闭套接字
+
+    //4.关闭套接字
     closesocket(sock);
     //关闭
     WSACleanup();
