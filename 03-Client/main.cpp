@@ -10,6 +10,7 @@ using namespace std;
 //方法2：属性 - 连接器 - 输入 - "ws2_32.lib"
 //开发跨平台的c++代码时，应该使用第二种方法
 
+//一个客户端，收发多条消息
 int main()
 {
     WORD ver = MAKEWORD(2, 2);
@@ -38,7 +39,6 @@ int main()
         //3.输入请求命令
         char cmdBuf[128] = {};
         cin >> cmdBuf;
-       // scanf_s("%s",cmdBuf);
         if (0 == strcmp(cmdBuf, "exit"))
         {
             break;

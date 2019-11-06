@@ -11,6 +11,7 @@ using namespace std;
 //方法2：属性 - 连接器 - 输入 - "ws2_32.lib"
 //开发跨平台的c++代码时，应该使用第二种方法
 
+//接收一个客户端，收发多条消息
 int main()
 {
     WORD ver = MAKEWORD(2, 2);
