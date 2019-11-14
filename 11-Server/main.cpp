@@ -33,7 +33,6 @@ struct DataHeader
     DataType type;
 };
 
-
 struct Login :public DataHeader
 {
     Login()

@@ -125,7 +125,6 @@ int Processor(SOCKET sock)
         recv(sock, (char *)&result + sizeof(DataHeader), sizeof(NewClient) - sizeof(DataHeader), 0);
         cout << "Server: New client join " << result.sock << endl;
     }
-
     return 0;
 }
 
